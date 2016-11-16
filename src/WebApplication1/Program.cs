@@ -12,8 +12,12 @@ namespace WebApplication1
         public static void Main(string[] args)
         {
             var host = new WebHostBuilder()
-                .UseKestrel()
+                .UseKestrel(options =>
+                {
+                    options.ThreadCount = 8;
+                })
                 .UseContentRoot(Directory.GetCurrentDirectory())
+                .UseUrls("http://127.0.0.1:5000/")
                 .UseIISIntegration()
                 .UseStartup<Startup>()
                 .Build();
